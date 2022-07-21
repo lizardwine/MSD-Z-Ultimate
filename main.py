@@ -104,8 +104,6 @@ class Main:
 		subprocess.call("screen -S -X server quit",shell=True)
 
 
-
-
 	# Optional lite version don't include
 
 	def server_info(self):
