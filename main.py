@@ -1,21 +1,18 @@
-"""
-Ver ram del servidor
-"""
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # Created by M20191
+
 import requests
 import time
 import subprocess
 import json
 
-from plugins.default import plugins_list
+from scripts.default import script_list
 
 class Main:
 
 	def __init__(self):
-		option = int(input("[1]Download server\n[2]Change RAM\n[3]Start server\n[4]Entry server\n[5]Close server\n[6]Server info\n[7]Plugins\n..."))
+		option = int(input("[1]Download server\n[2]Change RAM\n[3]Start server\n[4]Entry server\n[5]Close server\n[6]Server info\n[7]Scripts\n..."))
 		
 		if option == 1:
 			self.install_jars()
@@ -36,7 +33,7 @@ class Main:
 			self.server_info()
 
 		elif option == 7:
-			self.plugins()
+			self.script()
 
 
 		else:
@@ -113,8 +110,8 @@ class Main:
 
 
 	# Plugins for script
-	def plugins(self):
-		plugins_list()
+	def script(self):
+		script_list()
 
 
 if __name__ == "__main__":
