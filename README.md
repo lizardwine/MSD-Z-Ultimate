@@ -55,7 +55,7 @@ Specially designed to be run on **linux server/Windows Server**
  
 ## 🛠 Downloading repo, installing requirements and cd path:
 ```console
-git clone https://github.com/M20191/MSD-Z-Ultimate cd MSD-Z-Ultimate
+git clone https://github.com/M20191/MSD-Z-Ultimate && cd MSD-Z-Ultimate
 ```
 
 ## 🖥 How to run:
