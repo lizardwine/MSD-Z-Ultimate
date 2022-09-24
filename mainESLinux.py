@@ -5,6 +5,7 @@ import requests
 import json
 import subprocess
 import time
+import os
 
 # Acepta EULA y configura la RAM
 def eula_ram_sh():
@@ -89,6 +90,24 @@ def close_server():
 	time.sleep(5)
 	subprocess.call("screen -S -X server quit",shell=True)
 
+
+
+# - - - - - - 
+"""
+BETA
+def script():
+    # Obtiene la carpeta de los scripts (Los envuelve en una lista)
+    path_scripts = f"{os.getcwd()}/scripts"
+    # Recorre la lista de directorios
+    for script in os.listdir(path_scripts):
+        print(f"[{os.listdir(path_scripts).index(script)}] {script}")
+    
+    # Seleccionas el script
+    script_to_run = int(input("Script: "))
+    # Se ejecuta el script
+    exec(open(f"{path_scripts}/{os.listdir(path_scripts)[script_to_run]}").read(), globals())
+    
+"""
 
 
 
