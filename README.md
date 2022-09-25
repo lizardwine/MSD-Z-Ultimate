@@ -48,6 +48,7 @@ Specially designed to be run on **linux server/Windows Server**
 * Start server
 * Open console
 * Close Server
+* Brute Close server
 * Change Ram Server
 * Deleted Server
 * Download plugins
