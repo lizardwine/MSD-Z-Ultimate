@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from tracemalloc import start
 import requests
 import json
 import subprocess
