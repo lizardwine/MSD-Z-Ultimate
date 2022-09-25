@@ -29,7 +29,7 @@ def execute_json_plugins():
     for name,_id in plugins.items():
         # Descarga contenido del plugin
         download = requests.get(f"https://api.spiget.org/v2/resources/{_id}/download")
-        open(f"{name}.jar","wb").write(download.content)
+        open(f"plugins/{name}.jar","wb").write(download.content)
 
 
 def remove_json_plugins():
