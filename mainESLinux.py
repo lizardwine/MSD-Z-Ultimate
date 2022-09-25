@@ -107,6 +107,7 @@ def brute_close_server():
 # Desinstala servidor
 def delete_server():
 	print("Estas por borrar todos los archivos del servidor CTRL+C Para salir")
+	time.sleep(5)
 	subprocess.call("ls | grep -v *.py | xargs rm -fr",shell=True)
 	print("Servidor borrado con exito")
 
