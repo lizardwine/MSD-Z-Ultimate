@@ -40,7 +40,6 @@ select = int(input("""
     [1] Create JSON Plugins File
     [2] Execute JSON Plugins File
     [3] Remove JSON Plugins File
-    
     """))
 
 if select == 1:

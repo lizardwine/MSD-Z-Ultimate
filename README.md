@@ -10,7 +10,7 @@
                                       888   "   888 Y88b  d88P 888  .d88P 
                                       888       888  "Y8888P"  8888888P"  
                                           Ultimate version of that shi*
-                                                  Linux Support/Windows Support
+                                          Linux Support/Windows Support
 ```
 
 <p align=center>
