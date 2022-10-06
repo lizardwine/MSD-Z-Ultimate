@@ -6,6 +6,13 @@ import json
 import subprocess
 import time
 
+
+# Extraccion de datos del information.json
+def extract_json(file):
+	with open(f"{file}","r") as read:
+		json_file = json.load(read)
+		return json_file
+
 # Acepta EULA y configura la RAM
 def eula_ram_sh():
 	ram = int(input("Ram: "))
@@ -16,11 +23,11 @@ def eula_ram_sh():
 		open("eula.txt","w").write("eula=true")
 
 		# Extraemos informacion del information.json para realizar la instalacion
-		with open("information.json","r") as read:
-			information = json.load(read)
-			information["ram"] = ram
-			information["eula"] = eula
-			json.dump(information,open("information.json","w"))
+		information = extract_json("information.json")
+		information["ram"] = ram
+		information["eula"] = eula
+		
+		json.dump(information,open("information.json","w"))
 
 		open("iniciar.sh","w").write(f"java -Xmx{ram}G -Xms{ram}G -jar {information['jar']}.jar")
 
@@ -45,10 +52,15 @@ def download_server():
 		url = requests.get(f"https://api-msd-z.matiasing.repl.co/{jar_fork}/{version_jar_fork}")
 		subprocess.call(f"wget -t 100 -O {jar_fork}.jar {url.json()['link']}",shell=True)
 
+		# Nombre del servidor, identificarlo para ADM-SHELL
+		name = input("Asignar nombre al servidor (sin espacios): ")
 		# Sube un archivo log para extraer informacion posteriormente
-		log = {"jar":jar_fork,"version":version_jar_fork}
+		log = {"name":name,"jar":jar_fork,"version":version_jar_fork}
 		json.dump(log,open("information.json","w"))
 		
+		eula_ram_sh()
+
+
 	else:
 		print("Version erronea")
 		download_server()
@@ -60,12 +72,10 @@ def import_server():
 	json_name = input("Nombre del JSON para importar (sin .json): ")
 	print(f"JSON: {json_name}.json")
 
-	with open(f"{json_name}.json","r") as read:
-		json_file = json.load(read)
-		
-		jar = json_file["jar"]
-		version = json_file["version"]
-		ram = json_file["ram"]
+	information = extract_json("information.json")
+	jar = information["jar"]
+	version = information["version"]
+	ram = information["ram"]
 
 	resp = requests.get(f"https://api-msd-z.matiasing.repl.co/{jar}/{version}")
 	url = resp.json()["link"]
@@ -80,17 +90,26 @@ def import_server():
 # Inicia tu servidor mientante el jar
 def start_server():
 	print("Iniciando server")
-	subprocess.call("screen -S server sh iniciar.sh", shell=True)
+	information = extract_json("information.json")
+	name = information["name"]
+
+	subprocess.call(f"screen -S {name} sh iniciar.sh", shell=True)
 
 # Entra en tu servidor
 def entry_server():
-	subprocess.call("screen -r server",shell=True)
+	information = extract_json("information.json")
+	name = information["name"]
+
+	subprocess.call(f"screen -r {name}",shell=True)
 
 # Cierra tu servidor como corresponde
 def close_server():
 	print("Cerrando el servidor...")
 	time.sleep(5)
-	subprocess.call('screen -S server p 0 -X stuff "stop^M"',shell=True)
+	information = extract_json("information.json")
+	name = information["name"]
+	
+	subprocess.call(f'screen -S {name} p 0 -X stuff "stop^M"',shell=True)
 	print("Servidor cerrado con exito")
 
 
@@ -98,7 +117,9 @@ def close_server():
 def brute_close_server():
 	print("No se recomienda cerrarlo de esta forma podria causar problemas... CTRL+C Para salir")
 	time.sleep(5)
-	subprocess.call("screen -S server -X quit",shell=True)
+	information = extract_json("information.json")
+	name = information["name"]	
+	subprocess.call(f"screen -S {name} -X quit",shell=True)
 
 # Desinstala servidor
 def delete_server():
@@ -106,23 +127,6 @@ def delete_server():
 	time.sleep(5)
 	subprocess.call("ls | grep -v *.py | xargs rm -fr",shell=True)
 	print("Servidor borrado con exito")
-
-# - - - - - - 
-"""
-BETA
-def script():
-	# Obtiene la carpeta de los scripts (Los envuelve en una lista)
-	path_scripts = f"{os.getcwd()}/scripts"
-	# Recorre la lista de directorios
-	for script in os.listdir(path_scripts):
-		print(f"[{os.listdir(path_scripts).index(script)}] {script}")
-	
-	# Seleccionas el script
-	script_to_run = int(input("Script: "))
-	# Se ejecuta el script
-	exec(open(f"{path_scripts}/{os.listdir(path_scripts)[script_to_run]}").read(), globals())
-	
-"""
 
 if __name__ == "__main__":
 	while True:
@@ -132,9 +136,8 @@ if __name__ == "__main__":
 		[3]	Importar Servidor
 		[4] Detener Servidor
 		[5] Forzar Detencion
-		[6] Modificar RAM 
-		[7] Descargar Plugins
-		[8] Borrar Server
+		[6] Modificar RAM
+		[7] Borrar Server
 		... 
 		"""))
 		if option == 1:
@@ -150,8 +153,6 @@ if __name__ == "__main__":
 		elif option == 6:
 			eula_ram_sh()
 		elif option == 7:
-			pass # Cumming
-		elif option == 8:
 			delete_server()
 
 
