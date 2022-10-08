@@ -72,7 +72,7 @@ def import_server():
 	json_name = input("Nombre del JSON para importar (sin .json): ")
 	print(f"JSON: {json_name}.json")
 
-	information = extract_json("information.json")
+	information = extract_json(f"{json_name}.json")
 	jar = information["jar"]
 	version = information["version"]
 	ram = information["ram"]
@@ -86,6 +86,19 @@ def import_server():
 
 	# Escribe el sh para iniciar el servidor
 	open("iniciar.sh","w").write(f"java -Xmx{ram}G -Xms{ram}G -jar {jar['jar']}.jar")
+
+
+# Crear un setup para importarlo
+def create_setup_server():
+	name_setup = input("Nombre archivo [sin espacios]: ")
+	name_server = input("Nombre del servidor [sin espacios]: ")
+	jar_fork = input("Jar/Fork: ")
+	version = input("Versions: ")
+	ram = int(input("Ram del servidor: "))
+
+	log = {"name":name_server,"jar":jar_fork,"version":version,"ram":ram,"eula":"true"}
+	json.dump(log,open(f"{name_setup}","w"))
+
 
 # Inicia tu servidor mientante el jar
 def start_server():
@@ -134,26 +147,22 @@ if __name__ == "__main__":
 		[1] Descargar Servidor
 		[2] Iniciar Servidor
 		[3]	Importar Servidor
-		[4] Detener Servidor
-		[5] Forzar Detencion
-		[6] Modificar RAM
-		[7] Borrar Server
+		[4] Crear setup
+		[5] Detener Servidor
+		[6] Forzar Detencion
+		[7] Modificar RAM
+		[8] Borrar Server
 		... 
 		"""))
-		if option == 1:
-			download_server()
-		elif option == 2:
-			start_server()
-		elif option == 3:
-			import_server()
-		elif option == 4:
-			close_server()
-		elif option == 5:
-			brute_close_server()
-		elif option == 6:
-			eula_ram_sh()
-		elif option == 7:
-			delete_server()
+		if option == 1:download_server()
+		elif option == 2:start_server()
+		elif option == 3:import_server()
+		elif option == 4:create_setup_server()
+		elif option == 5:close_server()
+		elif option == 6:brute_close_server()
+		elif option == 7:eula_ram_sh()
+		elif option == 9:delete_server()
+		else:print("Exit")
 
 
 

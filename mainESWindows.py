@@ -29,7 +29,7 @@ def eula_ram_sh():
 
 # Descargar servidor
 def download_server():
-	versions_get = requests.get("http://localhost:5000/versions")
+	versions_get = requests.get("https://api-msd-z.matiasing.repl.co/versions")
 	# Seleciona tu fork/jar para descargar
 	print("Selecciona tu version a descargar")
 	for jars_forks in versions_get.json().keys():
@@ -45,9 +45,9 @@ def download_server():
 
 		version_jar_fork = input("\nVersion: ")
 		
-		url = requests.get(f"http://localhost:5000/{jar_fork}/{version_jar_fork}")
-        # Change IT
-		subprocess.call(f"wget -t 100 -O {jar_fork}.jar {url.json()['link']}",shell=True)
+		url = requests.get(f"https://api-msd-z.matiasing.repl.co/{jar_fork}/{version_jar_fork}")
+
+		subprocess.call(f"iwr -uri {url.json()['link']} -OutFile {jar_fork} -UseBasicParsing",shell=True) 
 
 		# Sube un archivo log para extraer informacion posteriormente
 		log = {"jar":jar_fork,"version":version_jar_fork}
@@ -71,10 +71,10 @@ def import_server():
 		version = json_file["version"]
 		ram = json_file["ram"]
 
-	resp = requests.get(f"http://localhost:5000/{jar}/{version}")
+	resp = requests.get(f"https://api-msd-z.matiasing.repl.co/{jar}/{version}")
 	url = resp.json()["link"]
-	#Change it
-	subprocess.call(f"wget -t 100 -O {jar}.jar {url}",shell=True)
+
+	subprocess.call(f"iwr -uri {url} -OutFile {jar} -UseBasicParsing",shell=True) 
 	
 	# Eula true
 	open("eula.txt","w").write("eula=true")
@@ -168,6 +168,10 @@ if __name__ == "__name__":
 		else:
 			print("Error")
 			break
+
+
+
+
 
 
 
