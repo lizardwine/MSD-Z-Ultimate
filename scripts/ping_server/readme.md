@@ -18,12 +18,12 @@
 
 ## 🛠 Downloading script and requirements in linux:
 ```console
-wget https://raw.githubusercontent.com/M20191/MSD-Z-Ultimate/'main'/scripts/ping_server/ping_server.py && pip install -r requirements.txt
+wget "https://raw.githubusercontent.com/M20191/MSD-Z-Ultimate/'main'/scripts/ping_server/ping_server.py" && pip install mcstatus
 ```
 
 ## 🛠 Downloading script and requirements in Windows:
 ```console
-Invoke-WebRequest -uri https://raw.githubusercontent.com/M20191/MSD-Z-Ultimate/'main'/scripts/ping_server/ping_server.py -OutFile ping_server.py -UseBasicParsing ; pip install -r requirements.txt
+Invoke-WebRequest -uri "https://raw.githubusercontent.com/M20191/MSD-Z-Ultimate/'main'/scripts/ping_server/ping_server.py" -OutFile ping_server.py -UseBasicParsing ; pip install mcstatus
 ```
 
 ## 🖥 How to run script file in Linux:
