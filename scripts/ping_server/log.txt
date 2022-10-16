@@ -1,9 +1,0 @@
-Request: 2022-10-03 22:18:31.663212
-Jugadores: 113/500
-Disponibilidad: 387
-Latencia: 70.711ms
-Version/Bunge: XCord 1.7.x, 1. 1.19.x
-Descripcion:
-    i》》DeathZone Network  [1.7/1.19]《《 i
-    ✞ Mejor conexión y KB【Comprobado】✞
-Estado: Activo

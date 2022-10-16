@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Import modules
 import requests
 import json
 import subprocess
@@ -13,7 +14,7 @@ def extract_json(file : str) -> object:
 		* file (str): JSON file
 
 	Returns:\n
-		* json_file: returns a JSON object to which information is extracted 
+		* json_file (object): returns a JSON object to which information is extracted 
 	"""
 
 	with open(f"{file}","r") as read:
@@ -22,6 +23,7 @@ def extract_json(file : str) -> object:
 
 def eula_ram_sh():
 	"""
+	Setup configurations
 	* Requests RAM value
 	* Accepts the EULAMC
 	* Generate the start.sh
@@ -87,13 +89,17 @@ def download_server():
 
 def import_server():
 	"""
-	Extract information from a JSON setup file to automate the entire download and installation of the server.
+	Extract information to JSON Setup file, download and install server\n
+		* Name
+		* Version
+		* Jar
+		* Ram
 	"""
 
 	json_name = input("Nombre del JSON para importar (sin .json): ")
 	print(f"JSON: {json_name}.json")
 
-	# Extrac information
+	# Extract information
 	information = extract_json(f"{json_name}.json")
 	jar = information["jar"]
 	version = information["version"]
@@ -106,7 +112,6 @@ def import_server():
 	
 	# Accepts the EULAMC
 	open("eula.txt","w").write("eula=true")
-
 	# Write start.sh file to setup server
 	open("iniciar.sh","w").write(f"java -Xmx{ram}G -Xms{ram}G -jar {jar['jar']}.jar")
 

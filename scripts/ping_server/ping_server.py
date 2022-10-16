@@ -1,40 +1,64 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-
 # Create by M20191
-# Error file log --
 
+# Import modules
 from mcstatus import MinecraftServer
-import re
 from datetime import datetime
+from typing import Any
+import re
 
-def ping_server(filename=''):
-    try:
-        serverNamePing = input("Nombre del Servidor: [0 For exit]: ")
-        if serverNamePing != "0":
-            server = MinecraftServer.lookup(serverNamePing)
-            response = server.status()
-            response.description = re.sub('§[\da-zA-Z]', '', response.description)
-            data = f"Request: {datetime.now()}\nJugadores: {response.players.online}/{response.players.max}\nDisponibilidad: { response.players.max - response.players.online}\nLatencia: {response.latency}ms\nVersion/Bunge: {response.version.name[0:15]} {response.version.name[-6:]}\nDescripcion: {response.description}\nEstado: Activo"
-            print(data)
+def server(server_name: str) -> dict[str, Any]:
+	"""
+	Returns a object in which we can extract information from server pinged.\n
+	Args:\n
+		* server_name (str): minecraft server IP/DNS
 
-        else:
-            print("Cancelado con exito.\n")
-        
-        if filename:
-            print("Guardando...")
-            with open(filename,"a",encoding="UTF-8") as fp:
-                fp.write(data)
-    except:
-        print("Servidor cerrado o en mantenimiento")
+	Returns:\n
+		* response (object): returns a object to which information is extracted
+	"""
+	# Ping function return 0 if server don´t response
+	try:
+		server_ping = MinecraftServer.lookup(server_name)
+		return server_ping.status()
 
-# Main
-while True:
-    option = int(input("[1]Ping server\n[2]Ping server with output\n[0 To exit]\n: "))
-    if option == 1:
-        ping_server()
-    elif option == 2:
-        log = input("File log: ")
-        ping_server(log)
-    else:
-        break
+	except:return 0
+		
+def information_server():
+	"""
+	Main function printing server information
+	"""
+	# Get name of server
+	server_name = input("Server name: ")
+	info_server = server(server_name)
+
+	# server error
+	if info_server==0:print("Error server ping");exit()
+
+	# Information of server
+	information_server = {
+		"time_ping":datetime.now(),
+		"ip":server_name,
+		"players":info_server.players.online,
+		"max/players":info_server.players.max,
+		"availability":info_server.players.max - info_server.players.online,
+		"latency":str(info_server.latency).split(".")[0],
+		"version/bunge":info_server.version.name[0:15]+" "+info_server.version.name[-6:],
+		"description":re.sub('§[\da-zA-Z]', '', info_server.description),
+		"status":"active"
+	}
+
+	# items of information_server
+	for i,x in information_server.items():
+		print(f'{i}: {x}')
+
+# Core
+if __name__ == '__main__':
+	while True:
+		option = int(input("""
+		[1]Ping server
+		... 
+		"""))
+		# Main
+		if option == 1:information_server()
+		else:exit()
