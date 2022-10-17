@@ -8,9 +8,8 @@ import json
 
 def create_json_plugins():
     """
-    Create a JSON file with the id's of the plugins to be downloaded
-    """
-    
+	Creates a JSON plugins file to automate plugins downloads with name and id
+	"""
     # Open-read plugins JSON file
     with open("plugins.json","r") as read:
         plugins = json.load(read)
@@ -42,7 +41,7 @@ def execute_json_plugins():
 
 def remove_json_plugins():
     """
-    Delete JSON file
+    Delete JSON plugin file
     """
     # Remove JSON plugins file
     open("plugins.json","w").write("")

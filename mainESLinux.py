@@ -117,7 +117,7 @@ def import_server():
 
 def create_setup_server():
 	"""
-	Creates a setup file to automate downloads and server installations
+	Creates a JSON Setup file to automate downloads and server installations
 	"""
 	
 	# Request data
@@ -133,7 +133,7 @@ def create_setup_server():
 
 def start_server():
 	"""
-	Start server from start.sh with the server name (line 77)\n
+	Start server from start.sh with the server name (line 79)\n
 	`screen -S {name} sh iniciar.sh
 	"""
 
@@ -144,7 +144,7 @@ def start_server():
 
 def entry_server():
 	"""
-	Entry server with the server name (line 77)
+	Entry server with the server name (line 79)
 	"""
 	information = extract_json("information.json")
 	name = information["name"]
