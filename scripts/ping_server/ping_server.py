@@ -37,15 +37,15 @@ def information_server():
 
 	# Information of server
 	information_server = {
-		"time_ping":datetime.now(),
-		"ip":server_name,
-		"players":info_server.players.online,
-		"max/players":info_server.players.max,
-		"availability":info_server.players.max - info_server.players.online,
-		"latency":str(info_server.latency).split(".")[0],
-		"version/bunge":info_server.version.name[0:15]+" "+info_server.version.name[-6:],
-		"description":re.sub('§[\da-zA-Z]', '', info_server.description),
-		"status":"active"
+		"Time to ping":datetime.now(),
+		"Ip":server_name,
+		"Players":info_server.players.online,
+		"Max/Players":info_server.players.max,
+		"Availability":info_server.players.max - info_server.players.online,
+		"Latency":str(info_server.latency).split(".")[0],
+		"Version/Bunge":info_server.version.name[0:15]+" "+info_server.version.name[-6:],
+		"Description":re.sub('§[\da-zA-Z]', '', info_server.description),
+		"Status":"Active"
 	}
 
 	# items of information_server

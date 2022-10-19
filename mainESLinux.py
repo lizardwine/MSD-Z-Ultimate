@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 # Import modules
+from typing import Any
 import requests
 import json
 import subprocess
 import time
 
-def extract_json(file : str) -> object:
+def extract_json(file : str) -> dict[str,Any]:
 	"""
 	Returns a JSON object in which we can extract information from the downloaded server.\n
 	Args:\n

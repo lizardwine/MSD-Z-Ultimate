@@ -68,8 +68,9 @@ python3 .\mainESLinux.py
 ```
 
 ### ⚙ Future To-do List:
-- [x] File documentation
-- [x] Document Better
-- [ ] Pufferfish
+- [ ] Sponge (SOON.... XX/10/22)
+- [ ] Pufferfish (IDK)
 - [ ] Other versions of minecraft/jars/forks
 - [ ] New Ideas...
+- [x] File documentation
+- [x] Document Better
