@@ -210,5 +210,5 @@ if __name__ == "__main__":
 		elif option == 5:close_server()
 		elif option == 6:brute_close_server()
 		elif option == 7:eula_ram_sh()
-		elif option == 9:delete_server()
+		elif option == 8:delete_server()
 		else:print("Exit")
